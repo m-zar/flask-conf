@@ -1,4 +1,8 @@
 class python {
+  exec { 'apt-update':
+    command     => '/usr/bin/apt-get update',
+    #refreshonly => true,
+  }
   package { 'python-setuptools':
     ensure => installed,
   }
@@ -8,9 +12,10 @@ class python {
   }
   package { 'python-virtualenv':
     ensure  => installed,
-    require => Package['python-setuptools', 'python-pip'],
+    require => [Exec['apt-update'], Package['python-setuptools', 'python-pip']],
   }
   package { 'python-dev' :
     ensure  => installed,
+    require => Exec['apt-update'],
   }
 }
