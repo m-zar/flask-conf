@@ -23,3 +23,5 @@ class { 'uwsgi':
   app_path        => $app_path,
   virtualenv_name => $virtualenv_name,
 }
+class { 'nginx':
+}
