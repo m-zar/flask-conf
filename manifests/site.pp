@@ -2,6 +2,7 @@ $app_name        = 'candi'
 $www_dir         = '/var/www'
 $app_path        = "${www_dir}/${app_name}"
 $virtualenv_name = 'venv'
+$user            = 'vagrant'
 
 include python
 file { 'www_dir' :
@@ -13,15 +14,18 @@ file { 'www_dir' :
 }
 class { 'flask':
   app_name => $app_name,
-  app_path  => $app_path,
+  app_path => $app_path,
+  user     => $user,
 }
 class { 'virtualenv':
   app_path        => $app_path,
   virtualenv_name => $virtualenv_name,
+  user            => $user,
 }
 class { 'uwsgi':
   app_path        => $app_path,
   virtualenv_name => $virtualenv_name,
+  user            => $user,
 }
 class { 'nginx':
 }
